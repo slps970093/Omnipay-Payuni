@@ -1,0 +1,53 @@
+#on:
+#  push:
+#    branches: [ dev, master ]
+#  pull_request:
+#    branches: [ master ]
+name: Code Coverage
+
+on: [push, pull_request]
+
+
+
+# 參考
+# https://learnku.com/articles/52789?order_by=created_at&
+# https://gist.github.com/nexxai/f052da7a59ffee88f3297b0c88dafaa1
+jobs:
+  test:
+    # 选择运行 action 的操作系统
+    runs-on: ubuntu-latest
+
+    strategy:
+      # 策略组中，如果有一个失败了，则快速停止继续运行
+      fail-fast: true
+      matrix:
+        php: [8.2]
+    # 以上策略设置，可以让代码运行在 php 的三个版本和 laravel 两个版本中的六种组合中
+    # 声明每个策略的名称
+    name: 'PHP ${{ matrix.php }} - unit test'
+
+    steps:
+      - uses: actions/checkout@master
+
+      # 配置php，用变量名指定版本号
+      - name: Select PHP version
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: '${{ matrix.php }}'
+          extensions: mbstring, pdo_sqlite, fileinfo, gd, xdebug
+          coverage: xdebug
+
+      # 配置 laravel 的版本，用变量名指定版本号
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+          API_FRONTEND_DOMAIN: api-frontend.local
+          API_PREFIX: api
+        run: |
+          ./vendor/bin/phpunit --colors=never --stderr --coverage-clover=coverage.xml
+          export CODECOV_TOKEN=${{ secrets.CODECOV_TOKEN }}
+          bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'

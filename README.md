@@ -1,8 +1,9 @@
-# Very short description of the package
+# OmniPay-Payuni
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/omnipay/payuni.svg?style=flat-square)](https://packagist.org/packages/omnipay/payuni)
 [![Total Downloads](https://img.shields.io/packagist/dt/omnipay/payuni.svg?style=flat-square)](https://packagist.org/packages/omnipay/payuni)
 ![GitHub Actions](https://github.com/omnipay/payuni/actions/workflows/main.yml/badge.svg)
+[![codecov](https://codecov.io/gh/slps970093/Omnipay-Payuni/branch/slps970093/dev/payment/graph/badge.svg?token=R3MMZ9C4V7)](https://codecov.io/gh/slps970093/Omnipay-Payuni)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
