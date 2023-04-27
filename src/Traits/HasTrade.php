@@ -6,7 +6,6 @@ trait HasTrade
 {
     /**
      * 訂單金額
-     * @param int $tradeAmt
      * @return void
      */
     public function setTradeAmt(int $tradeAmt)
@@ -16,20 +15,18 @@ trait HasTrade
 
     /**
      * 時間戳記
-     * @param int $timestamp
      * @return void
      */
-    public function setTimestamp(int $timestamp)
+    public function setTimestamp($timestamp)
     {
         $this->setParameter('Timestamp', $timestamp);
     }
 
-    /**
-     * 付款頁面交易截止秒數 若未帶此參數則預設為600秒
-     * @param int $sec
-     * @return void
-     */
-    public function setTradeLExpireSec(int $sec)
+	/**
+	 * 付款頁面交易截止秒數 若未帶此參數則預設為600秒
+	 * @return void
+	 */
+    public function setTradeLExpireSec($sec)
     {
         $this->setParameter('TradeLExpireSec', $sec);
     }
