@@ -8,7 +8,7 @@ trait HasTrade
      * 訂單金額
      * @return void
      */
-    public function setTradeAmt(int $tradeAmt)
+    public function setTradeAmt($tradeAmt)
     {
         $this->setParameter('TradeAmt', $tradeAmt);
     }
