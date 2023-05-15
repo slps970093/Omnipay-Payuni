@@ -2,15 +2,13 @@
 
 namespace Omnipay\Payuni\Support;
 
-use Illuminate\Support\Collection;
-use Omnipay\Common\Message\AbstractRequest;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class EncryptInfo
 {
-    public static function getBasicInfo(ParameterBag $parameter): Collection
+    public static function getBasicInfo(ParameterBag $parameter): array
     {
-        return collect([
+        return [
             # 加密資訊 這邊放基本共通一定會出現的
             "MerID"         		=> $parameter->get('MerID'),
             "MerTradeNo"    		=> $parameter->get('MerTradeNo'),
@@ -21,13 +19,13 @@ class EncryptInfo
             "NotifyURL"     		=> $parameter->get('notifyUrl'),
             "ProdDesc"				=> $parameter->get('ProdDesc'),
             "UsrMail"				=> $parameter->get('UsrMail'),
-        ]);
+        ];
     }
 
-    public static function filterNull(Collection $collection): Collection
-    {
-        return $collection->filter(function ($item) {
-            return !is_null($item);
-        });
+    public static function filterNull(array $params): array
+	{
+		return array_filter($params, function ($value) {
+			return !is_null($value);
+		});
     }
 }

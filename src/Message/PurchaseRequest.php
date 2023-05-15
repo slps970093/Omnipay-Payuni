@@ -35,36 +35,37 @@ class PurchaseRequest extends AbstractRequest
     public function getData(): array
     {
         // TODO: Implement getData() method.
-        $encryptInfo = EncryptInfo::getBasicInfo($this->parameters)->merge([
-            # 附加額外資料
-            "UsrMailFix"			=> $this->getParameter('UsrMailFix'),
-            "UseTokenType"			=> $this->getParameter('UseTokenType'),
-            "UseTokenStatus" 		=> $this->getParameter('UseTokenStatus'),
-            "CreditTokenType"		=> $this->getParameter('CreditTokenType'),
-            "CreditTokenExpired" 	=> $this->getParameter('CreditTokenExpired'),
-            "ExpireDate"			=> $this->getParameter('ExpireDate'),
-            "TradeLExpireSec"		=> $this->getParameter('TradeLExpireSec'),
-            "Credit"				=> $this->getParameter('Credit'),
-            "ICash"					=> $this->getParameter('ICash'),
-            "Aftee"					=> $this->getParameter('Aftee'),
-            "ATM"					=> $this->getParameter('ATM'),
-            "CVS"					=> $this->getParameter('CVS'),
-            "CreditUnionPay"		=> $this->getParameter('CreditUnionPay'),
-            "CreditRed"				=> $this->getParameter('CreditRed'),
-            "CreditInst"			=> $this->getParameter('CreditInst'),
-            "ApplePay"				=> $this->getParameter('ApplePay'),
-            "Ship"					=> $this->getParameter('Ship'),
-            "ShipTag"				=> $this->getParameter('ShipTag'),
-            "LgsType"				=> $this->getParameter('LgsType'),
-            "GoodsType"				=> $this->getParameter('GoodsType'),
-            "Consignee"				=> $this->getParameter('Consignee'),
-            "ConsigneeMobile"		=> $this->getParameter('ConsigneeMobile')
-        ]);
+		$mergeData = [
+			# 附加額外資料
+			"UsrMailFix"			=> $this->getParameter('UsrMailFix'),
+			"UseTokenType"			=> $this->getParameter('UseTokenType'),
+			"UseTokenStatus" 		=> $this->getParameter('UseTokenStatus'),
+			"CreditTokenType"		=> $this->getParameter('CreditTokenType'),
+			"CreditTokenExpired" 	=> $this->getParameter('CreditTokenExpired'),
+			"ExpireDate"			=> $this->getParameter('ExpireDate'),
+			"TradeLExpireSec"		=> $this->getParameter('TradeLExpireSec'),
+			"Credit"				=> $this->getParameter('Credit'),
+			"ICash"					=> $this->getParameter('ICash'),
+			"Aftee"					=> $this->getParameter('Aftee'),
+			"ATM"					=> $this->getParameter('ATM'),
+			"CVS"					=> $this->getParameter('CVS'),
+			"CreditUnionPay"		=> $this->getParameter('CreditUnionPay'),
+			"CreditRed"				=> $this->getParameter('CreditRed'),
+			"CreditInst"			=> $this->getParameter('CreditInst'),
+			"ApplePay"				=> $this->getParameter('ApplePay'),
+			"Ship"					=> $this->getParameter('Ship'),
+			"ShipTag"				=> $this->getParameter('ShipTag'),
+			"LgsType"				=> $this->getParameter('LgsType'),
+			"GoodsType"				=> $this->getParameter('GoodsType'),
+			"Consignee"				=> $this->getParameter('Consignee'),
+			"ConsigneeMobile"		=> $this->getParameter('ConsigneeMobile')
+		];
+        $encryptInfo = array_merge(EncryptInfo::getBasicInfo($this->parameters), $mergeData);
 
         # 加解密 and hash
         # @see https://www.payuni.com.tw/docs/web/#/7/56
         $encryptInfoStr = $this->encrypt(
-            EncryptInfo::filterNull($encryptInfo)->toArray(),
+            EncryptInfo::filterNull($encryptInfo),
             $this->getParameter("HashKey"),
             $this->getParameter("HashIV")
         );

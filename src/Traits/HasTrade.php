@@ -13,7 +13,17 @@ trait HasTrade
         $this->setParameter('TradeAmt', $tradeAmt);
     }
 
-    /**
+	/**
+	 * UNi序號
+	 * @param $tradeNo
+	 * @return void
+	 */
+	public function setTradeNo($tradeNo)
+	{
+		$this->setParameter('TradeNo', $tradeNo);
+	}
+
+	/**
      * 時間戳記
      * @return void
      */
