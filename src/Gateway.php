@@ -6,6 +6,8 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Payuni\Message\AcceptNotificationRequest;
 use Omnipay\Payuni\Message\CompletePurchaseRequest;
 use Omnipay\Payuni\Message\CreditCardRequest;
+use Omnipay\Payuni\Message\CreditTokenCancelRequest;
+use Omnipay\Payuni\Message\CreditTokenQueryRequest;
 use Omnipay\Payuni\Message\PurchaseRequest;
 use Omnipay\Payuni\Message\TradeCancelRequest;
 use Omnipay\Payuni\Message\TradeCloseRequest;
@@ -29,18 +31,33 @@ class Gateway extends AbstractGateway
         ];
     }
 
-
+	/**
+	 * upp 模式
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\Common\Message\RequestInterface
+	 */
     public function purchase(array $options = [])
     {
         $data = array_merge($options, $this->getParameters());
         return $this->createRequest(PurchaseRequest::class, $data);
     }
 
+	/**
+	 * 交易成功回傳結果
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\Common\Message\RequestInterface
+	 */
     public function completePurchase(array $options = [])
     {
         $data = array_merge($options, $this->getParameters());
         return $this->createRequest(CompletePurchaseRequest::class, $data);
     }
+
+	/**
+	 * 信用卡支付（幕後）
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
     public function creditCard(array $options)
     {
         $data = array_merge($options, $this->getParameters());
@@ -69,7 +86,34 @@ class Gateway extends AbstractGateway
 		return $this->createRequest(TradeCancelRequest::class,$data);
 	}
 
-    public function acceptNotification(array $options)
+	/**
+	 * 信用卡 token 查詢
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
+	public function creditTokenQuery(array $options)
+	{
+		$data = array_merge($options, $this->getParameters());
+		return $this->createRequest(CreditTokenQueryRequest::class,$data);
+	}
+
+	/**
+	 * 信用卡 token 取消
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
+	public function creditTokenCancel(array $options)
+	{
+		$data = array_merge($options, $this->getParameters());
+		return $this->createRequest(CreditTokenCancelRequest::class,$data);
+	}
+
+	/**
+	 * notify request
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest|\Omnipay\Common\Message\NotificationInterface
+	 */
+	public function acceptNotification(array $options)
     {
         $data = array_merge($options, $this->getParameters());
         return $this->createRequest(AcceptNotificationRequest::class, $data);
