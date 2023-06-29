@@ -1,30 +1,32 @@
 <?php
-
+/**
+ * 多筆交易查詢
+ */
 namespace Omnipay\Payuni\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
-use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Payuni\Support\EncryptInfo;
-use Omnipay\Payuni\Traits\HasCreditCard;
 use Omnipay\Payuni\Traits\HasMerchant;
 use Omnipay\Payuni\Traits\HasPayUniApi;
 use Omnipay\Payuni\Traits\HasTrade;
 
-class TradeCloseRequest extends AbstractRequest
+class TradeQueryMultiRequest extends AbstractRequest
 {
-	use HasMerchant,
-		HasCreditCard,
-		HasTrade,
-		HasPayUniApi;
+	use HasMerchant;
+	use HasTrade;
+	use HasPayUniApi;
+
 	public function sendData($data)
 	{
 		// TODO: Implement sendData() method.
+		$this->getPayUni()->parameter['Version'] = '2.0';
+
 		$api = $this->getPayUni()->UniversalTrade(
 			$data,
-			'trade_close'
+			'trade_query'
 		);
 
-		return new TradeResponse($this, $api['message']);
+		return new TradeQueryResponse($this,$api['message']);
 	}
 
 	public function getData()
@@ -33,8 +35,8 @@ class TradeCloseRequest extends AbstractRequest
 		$basicData = EncryptInfo::getBasicInfo($this->parameters);
 
 		$mergeData = [
-			'TradeNo' => $this->getParameter('TradeNo'),
-			'CloseType' => $this->getParameter('CloseType')
+			'QueryType' => $this->getParameter('QueryType'),
+			'QueryNo' => $this->getParameter('QueryNo')
 		];
 
 		return EncryptInfo::filterNull(array_merge($basicData, $mergeData));
