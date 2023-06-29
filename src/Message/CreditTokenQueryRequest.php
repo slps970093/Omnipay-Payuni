@@ -11,35 +11,35 @@ use Omnipay\Payuni\Traits\HasTrade;
 
 class CreditTokenQueryRequest extends AbstractRequest
 {
-	use HasMerchant,
-		HasCreditCard,
-		HasPayUniApi,
-		HasTrade;
-	public function sendData($data)
-	{
-		// TODO: Implement sendData() method.
+    use HasMerchant;
+    use HasCreditCard;
+    use HasPayUniApi;
+    use HasTrade;
+    public function sendData($data)
+    {
+        // TODO: Implement sendData() method.
 
-		$apiResponse = $this->getPayUni()->UniversalTrade(
-			$data,
-			'credit_bind_query'
-		);
+        $apiResponse = $this->getPayUni()->UniversalTrade(
+            $data,
+            'credit_bind_query'
+        );
 
-		return new CreditTokenResponse($this,$apiResponse['message']);
-	}
+        return new CreditTokenResponse($this, $apiResponse['message']);
+    }
 
-	public function getData()
-	{
-		// TODO: Implement getData() method.
-		$params = EncryptInfo::getBasicInfo($this->parameters);
+    public function getData()
+    {
+        // TODO: Implement getData() method.
+        $params = EncryptInfo::getBasicInfo($this->parameters);
 
-		$mergeParams = [
-			'MerID' 			=> $this->getParameter('MerID'),
-			'CreditToken' 		=> $this->getParameter('CreditToken'),
-			'CreditTokenType'	=> $this->getParameter('CreditTokenType'),
-			'CreditHash'		=> $this->getParameter('CreditHash'),
-			'Timestamp'			=> $this->getParameter('Timestamp')
-		];
+        $mergeParams = [
+            'MerID' 			=> $this->getParameter('MerID'),
+            'CreditToken' 		=> $this->getParameter('CreditToken'),
+            'CreditTokenType'	=> $this->getParameter('CreditTokenType'),
+            'CreditHash'		=> $this->getParameter('CreditHash'),
+            'Timestamp'			=> $this->getParameter('Timestamp')
+        ];
 
-		return EncryptInfo::filterNull(array_merge($params, $mergeParams));
-	}
+        return EncryptInfo::filterNull(array_merge($params, $mergeParams));
+    }
 }

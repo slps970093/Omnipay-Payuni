@@ -105,15 +105,15 @@ trait HasCreditCard
         $this->setParameter('CreditHash', $creditHash);
     }
 
-	/**
-	 * 關帳類型
-	 * @param $type
-	 * @return void
-	 */
-	public function setCloseType($type)
-	{
-		$this->setParameter('CloseType', $type);
-	}
+    /**
+     * 關帳類型
+     * @param $type
+     * @return void
+     */
+    public function setCloseType($type)
+    {
+        $this->setParameter('CloseType', $type);
+    }
 
     /**
      * 幕後強制3D
