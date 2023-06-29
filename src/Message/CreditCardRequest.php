@@ -36,21 +36,21 @@ class CreditCardRequest extends AbstractRequest
     public function getData()
     {
         # 加密資訊 這邊放基本共通一定會出現的
-		$mergeData = [
-			'CardNo' 				=> $this->getParameter('CardNo'),
-			'CardCVC'				=> $this->getParameter('CardCVC'),
-			'CardInst'				=> $this->getParameter('CardInst'),
-			'CardType'				=> $this->getParameter('CardType'),
-			'CardExpired' 			=> $this->getParameter('CardExpired'),
-			'CreditToken'			=> $this->getParameter('CreditToken'),
-			'CreditTokenType'		=> $this->getParameter('CreditTokenType'),
-			'CreditTokenExpired'	=> $this->getParameter('CreditTokenExpired'),
-			'CreditHash'			=> $this->getParameter('CreditHash'),
-			'UseTokenStatus'		=> $this->getParameter('UseTokenStatus'),
-			'API3D'					=> $this->getParameter('API3D')
-		];
+        $mergeData = [
+            'CardNo' 				=> $this->getParameter('CardNo'),
+            'CardCVC'				=> $this->getParameter('CardCVC'),
+            'CardInst'				=> $this->getParameter('CardInst'),
+            'CardType'				=> $this->getParameter('CardType'),
+            'CardExpired' 			=> $this->getParameter('CardExpired'),
+            'CreditToken'			=> $this->getParameter('CreditToken'),
+            'CreditTokenType'		=> $this->getParameter('CreditTokenType'),
+            'CreditTokenExpired'	=> $this->getParameter('CreditTokenExpired'),
+            'CreditHash'			=> $this->getParameter('CreditHash'),
+            'UseTokenStatus'		=> $this->getParameter('UseTokenStatus'),
+            'API3D'					=> $this->getParameter('API3D')
+        ];
 
-        $encryptInfo = array_merge(EncryptInfo::getBasicInfo($this->parameters),$mergeData);
+        $encryptInfo = array_merge(EncryptInfo::getBasicInfo($this->parameters), $mergeData);
 
         return EncryptInfo::filterNull($encryptInfo);
     }

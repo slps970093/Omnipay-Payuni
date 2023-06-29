@@ -19,8 +19,8 @@ class CreditCardResponse extends AbstractResponse
         return $this->data['Status'];
     }
 
-	public function getMessage()
-	{
-		return $this->data['EncryptInfo']['Message'];
-	}
+    public function getMessage()
+    {
+        return $this->data['EncryptInfo']['Message'];
+    }
 }

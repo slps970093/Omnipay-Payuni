@@ -10,30 +10,30 @@ use Omnipay\Payuni\Traits\HasTrade;
 
 class TradeQueryRequest extends AbstractRequest
 {
-	use HasMerchant;
-	use HasTrade;
-	use HasPayUniApi;
+    use HasMerchant;
+    use HasTrade;
+    use HasPayUniApi;
 
-	public function sendData($data)
-	{
-		// TODO: Implement sendData() method.
-		$api = $this->getPayUni()->UniversalTrade(
-			$data,
-			'trade_query'
-		);
+    public function sendData($data)
+    {
+        // TODO: Implement sendData() method.
+        $api = $this->getPayUni()->UniversalTrade(
+            $data,
+            'trade_query'
+        );
 
-		return new TradeQueryResponse($this,$api['message']);
-	}
+        return new TradeQueryResponse($this, $api['message']);
+    }
 
-	public function getData()
-	{
-		// TODO: Implement getData() method.
-		$basicData = EncryptInfo::getBasicInfo($this->parameters);
+    public function getData()
+    {
+        // TODO: Implement getData() method.
+        $basicData = EncryptInfo::getBasicInfo($this->parameters);
 
-		$mergeData = [
-			'TradeNo' => $this->getParameter('TradeNo')
-		];
+        $mergeData = [
+            'TradeNo' => $this->getParameter('TradeNo')
+        ];
 
-		return EncryptInfo::filterNull(array_merge($basicData, $mergeData));
-	}
+        return EncryptInfo::filterNull(array_merge($basicData, $mergeData));
+    }
 }

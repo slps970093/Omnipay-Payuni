@@ -11,45 +11,45 @@ use Omnipay\Payuni\Traits\HasTrade;
 
 class CreditTokenCancelRequest extends AbstractRequest
 {
-	use HasMerchant,
-		HasCreditCard,
-		HasPayUniApi,
-		HasTrade;
-	public function sendData($data)
-	{
-		// TODO: Implement sendData() method.
+    use HasMerchant;
+    use HasCreditCard;
+    use HasPayUniApi;
+    use HasTrade;
+    public function sendData($data)
+    {
+        // TODO: Implement sendData() method.
 
-		$apiResponse = $this->getPayUni()->UniversalTrade(
-			$data,
-			'credit_bind_cancel'
-		);
+        $apiResponse = $this->getPayUni()->UniversalTrade(
+            $data,
+            'credit_bind_cancel'
+        );
 
-		return new CreditTokenResponse($this,$apiResponse['message']);
-	}
+        return new CreditTokenResponse($this, $apiResponse['message']);
+    }
 
-	public function getData()
-	{
-		// TODO: Implement getData() method.
-		$params = EncryptInfo::getBasicInfo($this->parameters);
+    public function getData()
+    {
+        // TODO: Implement getData() method.
+        $params = EncryptInfo::getBasicInfo($this->parameters);
 
-		$mergeParams = [
-			'MerID' 			=> $this->getParameter('MerID'),
-			'BindVal' 			=> $this->getParameter('BindVal'),
-			'CreditTokenType'	=> $this->getParameter('CreditTokenType'),
-			'UseTokenType'		=> $this->getParameter('UseTokenType'),
-			'Timestamp'			=> $this->getParameter('Timestamp')
-		];
+        $mergeParams = [
+            'MerID' 			=> $this->getParameter('MerID'),
+            'BindVal' 			=> $this->getParameter('BindVal'),
+            'CreditTokenType'	=> $this->getParameter('CreditTokenType'),
+            'UseTokenType'		=> $this->getParameter('UseTokenType'),
+            'Timestamp'			=> $this->getParameter('Timestamp')
+        ];
 
-		return EncryptInfo::filterNull(array_merge($params, $mergeParams));
-	}
+        return EncryptInfo::filterNull(array_merge($params, $mergeParams));
+    }
 
-	/**
-	 * 綁定回傳值 / 信用卡 Token
-	 * @param $val
-	 * @return CreditTokenCancelRequest
-	 */
-	public function setBindVal($val)
-	{
-		return $this->setParameter('BindVal', $val);
-	}
+    /**
+     * 綁定回傳值 / 信用卡 Token
+     * @param $val
+     * @return CreditTokenCancelRequest
+     */
+    public function setBindVal($val)
+    {
+        return $this->setParameter('BindVal', $val);
+    }
 }

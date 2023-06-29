@@ -23,9 +23,9 @@ class EncryptInfo
     }
 
     public static function filterNull(array $params): array
-	{
-		return array_filter($params, function ($value) {
-			return !is_null($value);
-		});
+    {
+        return array_filter($params, function ($value) {
+            return !is_null($value);
+        });
     }
 }
