@@ -14,7 +14,6 @@ class CreditCardResponse extends AbstractResponse
         return strtoupper($this->data['Status']) == "SUCCESS";
     }
 
-
     public function getCode()
     {
         return $this->data['Status'];

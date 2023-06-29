@@ -40,4 +40,26 @@ trait HasTrade
     {
         $this->setParameter('TradeLExpireSec', $sec);
     }
+
+	/**
+	 * 編號類型
+	 * @param $type
+	 * @return void
+	 */
+	public function setQueryType($type)
+	{
+		$this->setParameter('QueryType', $type);
+	}
+
+	/**
+	 * 編號
+	 *
+	 * 最多100筆 以逗號分隔 e.g. 1674006682603924996,1674006544051190875
+	 * @param $no
+	 * @return void
+	 */
+	public function setQueryNo($no)
+	{
+		$this->setParameter('QueryNo', $no);
+	}
 }

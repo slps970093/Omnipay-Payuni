@@ -11,6 +11,8 @@ use Omnipay\Payuni\Message\CreditTokenQueryRequest;
 use Omnipay\Payuni\Message\PurchaseRequest;
 use Omnipay\Payuni\Message\TradeCancelRequest;
 use Omnipay\Payuni\Message\TradeCloseRequest;
+use Omnipay\Payuni\Message\TradeQueryMultiRequest;
+use Omnipay\Payuni\Message\TradeQueryRequest;
 use Omnipay\Payuni\Traits\HasMerchant;
 
 class Gateway extends AbstractGateway
@@ -119,4 +121,25 @@ class Gateway extends AbstractGateway
         return $this->createRequest(AcceptNotificationRequest::class, $data);
     }
 
+	/**
+	 * 交易查詢
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
+	public function tradeQuery(array $options)
+	{
+		$data = array_merge($options, $this->getParameters());
+		return $this->createRequest(TradeQueryRequest::class, $data);
+	}
+
+	/**
+	 * 多筆交易查詢
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
+	public function tradeQueryMulti(array $options)
+	{
+		$data = array_merge($options, $this->getParameters());
+		return $this->createRequest(TradeQueryMultiRequest::class, $data);
+	}
 }
