@@ -9,6 +9,7 @@ use Omnipay\Payuni\Traits\HasEncrypt;
 use Omnipay\Payuni\Traits\HasExpire;
 use Omnipay\Payuni\Traits\HasLogistics;
 use Omnipay\Payuni\Traits\HasMerchant;
+use Omnipay\Payuni\Traits\HasPayUniApi;
 use Omnipay\Payuni\Traits\HasPersonal;
 use Omnipay\Payuni\Traits\HasProduct;
 use Omnipay\Payuni\Traits\HasTrade;
@@ -26,10 +27,13 @@ class PurchaseRequest extends AbstractRequest
     use HasLogistics;
     use HasUNiPayPage;
     use HasTrade;
+	use HasPayUniApi;
 
     public function sendData($data)
     {
-        return new PurchaseResponse($this, $data);
+		$htmlContent = $this->getPayUni()->UniversalTrade($data, 'upp');
+
+        return new PurchaseResponse($this, $htmlContent);
     }
 
     public function getData(): array
