@@ -113,4 +113,14 @@ trait HasUNiPayPage
     {
         $this->setParameter('ShipTag', $state);
     }
+
+	/**
+	 * 語系切換
+	 * @param $lang
+	 * @return void
+	 */
+	public function setLang($lang)
+	{
+		$this->setParameter('Lang', $lang);
+	}
 }

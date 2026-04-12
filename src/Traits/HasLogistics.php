@@ -44,6 +44,30 @@ trait HasLogistics
         $this->setParameter('ConsigneeMobile', $consigneeMobile);
     }
 
+
+	/**
+	 * 取件人地址
+	 * @param $consigneeAddress
+	 * @return void
+	 */
+	public function setConsigneeAddress($consigneeAddress)
+	{
+		$this->setParameter('ConsigneeAddress', $consigneeAddress);
+	}
+
+
+	/**
+	 * 付款頁取件人地址固定
+	 * 若無帶此參數，則收件人地址預設可修改
+	 * 1=不可修改
+	 * @param $ConsigneeAddressFix
+	 * @return void
+	 */
+	public function setConsigneeAddressFix($ConsigneeAddressFix)
+	{
+		$this->setParameter('ConsigneeAddressFix', $ConsigneeAddressFix);
+	}
+
     /**
      * 物流型態
      * @param $type

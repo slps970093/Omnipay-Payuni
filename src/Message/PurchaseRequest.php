@@ -36,6 +36,8 @@ class PurchaseRequest extends AbstractRequest
         return new PurchaseResponse($this, $htmlContent);
     }
 
+
+
     public function getData(): array
     {
         // TODO: Implement getData() method.
@@ -44,6 +46,7 @@ class PurchaseRequest extends AbstractRequest
             "UsrMailFix"			=> $this->getParameter('UsrMailFix'),
             "UseTokenType"			=> $this->getParameter('UseTokenType'),
             "UseTokenStatus" 		=> $this->getParameter('UseTokenStatus'),
+			"CreditToken"			=> $this->getParameter('CreditToken'),
             "CreditTokenType"		=> $this->getParameter('CreditTokenType'),
             "CreditTokenExpired" 	=> $this->getParameter('CreditTokenExpired'),
             "ExpireDate"			=> $this->getParameter('ExpireDate'),
@@ -62,30 +65,11 @@ class PurchaseRequest extends AbstractRequest
             "LgsType"				=> $this->getParameter('LgsType'),
             "GoodsType"				=> $this->getParameter('GoodsType'),
             "Consignee"				=> $this->getParameter('Consignee'),
-            "ConsigneeMobile"		=> $this->getParameter('ConsigneeMobile')
+            "ConsigneeMobile"		=> $this->getParameter('ConsigneeMobile'),
+			'Lang'					=> $this->getParameter('Lang'),
         ];
-        $encryptInfo = array_merge(EncryptInfo::getBasicInfo($this->parameters), $mergeData);
 
-        # 加解密 and hash
-        # @see https://www.payuni.com.tw/docs/web/#/7/56
-        $encryptInfoStr = $this->encrypt(
-            EncryptInfo::filterNull($encryptInfo),
-            $this->getParameter("HashKey"),
-            $this->getParameter("HashIV")
-        );
-
-        $hashInfo = $this->hashInfo(
-            $encryptInfoStr,
-            $this->getParameter("HashKey"),
-            $this->getParameter("HashIV")
-        );
-
-        return [
-            "MerID"         => $this->getParameter('MerID'),
-            "Version"		=> "1.0",
-            "EncryptInfo"	=> $encryptInfoStr,
-            "HashInfo"		=> $hashInfo
-        ];
+        return array_merge(EncryptInfo::getBasicInfo($this->parameters), $mergeData);
     }
 
 }
