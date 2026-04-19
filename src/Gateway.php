@@ -8,6 +8,8 @@ use Omnipay\Payuni\Message\CompletePurchaseRequest;
 use Omnipay\Payuni\Message\CreditCardRequest;
 use Omnipay\Payuni\Message\CreditTokenCancelRequest;
 use Omnipay\Payuni\Message\CreditTokenQueryRequest;
+use Omnipay\Payuni\Message\PeriodNotificationRequest;
+use Omnipay\Payuni\Message\PeriodPageRequest;
 use Omnipay\Payuni\Message\PurchaseRequest;
 use Omnipay\Payuni\Message\TradeCancelRequest;
 use Omnipay\Payuni\Message\TradeCloseRequest;
@@ -120,6 +122,24 @@ class Gateway extends AbstractGateway
         $data = array_merge($options, $this->getParameters());
         return $this->createRequest(AcceptNotificationRequest::class, $data);
     }
+
+
+	public function periodPage(array $options)
+	{
+		$data = array_merge($options, $this->getParameters());
+		return $this->createRequest(PeriodPageRequest::class, $data);
+	}
+
+	/**
+	 * 續期收款通知
+	 * @param array $options
+	 * @return \Omnipay\Common\Message\AbstractRequest
+	 */
+	public function acceptPeriodNotification(array $options)
+	{
+		$data = array_merge($options, $this->getParameters());
+		return $this->createRequest(PeriodNotificationRequest::class, $data);
+	}
 
     /**
      * 交易查詢
